@@ -39,7 +39,7 @@ function getTodaysScripts(){
     scripts=$(parseCSV $csv)
 
     # if there are no scripts today do nothing
-    if [[ ! -n scripts ]]; then
+    if [[ ! -n $scripts ]]; then
 	echo "No scripts today"
 	return
     fi
