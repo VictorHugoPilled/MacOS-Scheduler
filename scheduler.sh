@@ -36,10 +36,10 @@ function getTodaysScripts(){
     csv=$1
 
     # parse the csv config file
-    scripts=$(parseCSV $csv)
+    scripts=$(parseCSV "$csv")
 
     # if there are no scripts today do nothing
-    if [[ ! -n $scripts ]]; then
+    if [[ ! -n "$scripts" ]]; then
 	echo "No scripts today"
 	return
     fi
@@ -102,7 +102,7 @@ function main(){
     todaysScripts=( $(getTodaysScripts $csv) )
 
     # if the variable is empty exit the script
-    if [[ ! -n $todaysScripts  ]];then
+    if [[ ! -n "$todaysScripts"  ]];then
 	echo "No scripts to run"
 	return
     fi
