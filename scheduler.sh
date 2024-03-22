@@ -119,8 +119,7 @@ function main(){
         
 }
 
-# if you need to change the name of the csv, do it here
-main scheduler.csv
+
 
 
 
