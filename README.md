@@ -1,22 +1,18 @@
 # Setup Steps
 
 ## CSV Setup
-1. Place the day, the script time and script path in the scheduler.csv. There are examples in the csv for you to follow.
+1. Place the day, the script time and the full script path in the scheduler.csv. There are examples in the csv for you to follow.
    - **Don't remove the heading**, it is ignored when the script is ran, but if you do remove it, all of your scripts will not run.
    - Don't worry about the order you put the scripts in, they will be sorted in the code.
    - Days must be capitalized: Monday, Tuesday, etc.
-   - Time must be written in the 24 hour format.
+   - Time must be written in the 24 hour format: 00:00-23:59
 
 ## Workflow setup
 1. Open scheduler.workflow with automator.
-2. Replace the following with whatever directory you decide to leave this folder. 
+2. Replace the directory here after the cd command with whatever directory you decide to leave this folder. 
 
-```Shell
-cd $HOME/scheduler
-```
-	- example:
 	```Shell
-	cd /Users/earlchase/documents/scheduling
+	cd /Users/earlchase/documents/scheduler
 	```
 
 3. The script is exectuable and will run when called by the workflow so no further configuration is needed.
