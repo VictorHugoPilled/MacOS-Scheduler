@@ -17,8 +17,8 @@ function parseCSV(){
     # create filelength integer variable so we don't get the header
     typeset -i fileLength=$(< $csv | wc -l)
 
-    # read in the file, sort based on the times and ignore the header
-    scripts=$( < $csv | sort -n | tail -n $fileLength )
+    # read in the file and ignore the header
+    scripts=$( < $csv | tail -n $fileLength )
 
     # return the scripts read in from the csv
     echo $scripts
