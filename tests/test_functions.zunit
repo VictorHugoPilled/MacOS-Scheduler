@@ -1,7 +1,8 @@
 #!/usr/bin/env zunit
 
 @test 'testparseCSVWithCSV' {
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+
+      load ../scheduler.sh
       export csv='scheduler.csv'
       result=$(parseCSV $csv)
       assert $result is_not_empty
@@ -9,14 +10,16 @@
 }
 
 @test 'testparseCSVWithNoCSV' {
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+
+      load ../scheduler.sh
       result=$(parseCSV)
       assert $result is_not_empty
       assert $result same_as 'File not found'
 }
 
 @test 'testgetTodaysScriptsWithCSV' {
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+
+      load ../scheduler.sh
       export csv='scheduler.csv'
       result=$(getTodaysScripts $csv)
       assert $result is_not_empty
@@ -25,7 +28,8 @@
 }
 
 @test 'testgetTodaysScriptsWithNoCSV' {
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+
+      load ../scheduler.sh
       result=$(getTodaysScripts)
       assert $result is_empty
 
@@ -33,19 +37,22 @@
 }
 
 @test 'testScheduleNonExistentFile' {
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+
+      load ../scheduler.sh
       
 
 }
 
 @test 'testScheduleFileExists' {
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+
+      load ../scheduler.sh
       	 
 
 }
 
 @test 'testMainWithCSV' {
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+
+      load ../scheduler.sh
       result=$(main)
       assert $result same_as 'Done'
       
@@ -54,7 +61,7 @@
 
 @test 'testMainNoCSV' {
 
-      load /Users/earlchase/documents/scheduler/scheduler.sh
+      load ../scheduler.sh
       result=$(main)
       assert $result is_empty
       
