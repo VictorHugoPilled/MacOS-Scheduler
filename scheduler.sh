@@ -85,6 +85,7 @@ function schedule() {
 	# run and send to background
 	python3 $scriptName &
     fi
+
     
 }
 
@@ -116,7 +117,9 @@ function main(){
 
     # wait for all scripts to run before exiting
     wait
-        
+
+    # all scripts have finished running
+    echo 'Done'
 }
 
 
