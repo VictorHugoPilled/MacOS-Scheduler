@@ -81,11 +81,7 @@ function schedule() {
     
     # Check if the file exists before running it
     scriptName=$1
-    if [[ -f "$scriptName" ]];then
-	# run and send to background
-	python3 $scriptName &
-    fi
-
+    [[ -f "$scriptName" ]] && "python3 $scriptName &"  || echo "File does not exists"
     
 }
 

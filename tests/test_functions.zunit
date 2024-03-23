@@ -36,19 +36,24 @@
       
 }
 
-@test 'testScheduleNonExistentFile' {
-
-      load ../scheduler.sh
-      
-
-}
 
 @test 'testScheduleFileExists' {
 
       load ../scheduler.sh
-      	 
+      result=$(schedule ~/basicdownload.py $(date "+%R"))
+      assert $result does_not_contain "File does not exists"
 
 }
+
+@test 'testScheduleNonExistentFile' {
+
+      load ../scheduler.sh
+      result=$(schedule fake.py $(date "+%R"))
+      assert $result same_as "File does not exists"
+      
+
+}
+
 
 @test 'testMainWithCSV' {
 
