@@ -1,7 +1,8 @@
 Day,Time,ScriptPath
 Thursday,19:00,/Users/earlchase/documents/scheduler/basicdownload.py
 Thursday,18:30,/Users/earlchase/key.py
-Thursday,18:05,/Users/earlchase/thirdkey.py
+Sunday,18:05,/Users/earlchase/thirdkey.py
 Monday,15:00,/Users/earlchase/key.py
 Friday,12:33,/Users/earlchase/documents/scheduler/thirdkey.py
 Friday,12:34,/Users/earlchase/documents/scheduler/basicdownload.py
+Saturday,12:34,/Users/earlchase/documents/scheduler/basicdownload.py
