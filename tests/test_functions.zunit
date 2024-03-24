@@ -1,9 +1,21 @@
 #!/usr/bin/env zunit
 
+@setup {
+
+       load ../scheduler.sh
+       run rm -rf ~/testfile.txt
+       export csv='scheduler.csv'
+       run ./createATestFile.sh
+       export testcsv="/test.csv"
+}
+
+@teardown {
+
+	  
+}
+
 @test 'testparseCSVWithCSV' {
 
-      load ../scheduler.sh
-      export csv='scheduler.csv'
       result=$(parseCSV $csv)
       assert $result is_not_empty
       assert $result does_not_contain 'File not found'
@@ -11,7 +23,6 @@
 
 @test 'testparseCSVWithNoCSV' {
 
-      load ../scheduler.sh
       result=$(parseCSV)
       assert $result is_not_empty
       assert $result same_as 'File not found'
@@ -19,17 +30,14 @@
 
 @test 'testgetTodaysScriptsWithCSV' {
 
-      load ../scheduler.sh
-      export csv='scheduler.csv'
       result=$(getTodaysScripts $csv)
       assert $result is_not_empty
       assert $result does_not_contain 'No scripts today'
-      
+       
 }
 
 @test 'testgetTodaysScriptsWithNoCSV' {
 
-      load ../scheduler.sh
       result=$(getTodaysScripts)
       assert $result is_empty
 
@@ -38,9 +46,7 @@
 
 
 @test 'testScheduleFileExists' {
-
-      run rm -rf ~/testfile.txt
-      load ../scheduler.sh
+      
       result=$(schedule ~/createFile.py $(date "+%R"))
       echo $result
       # if scheduled, file will be created with current time
@@ -50,7 +56,7 @@
 
 @test 'testScheduleNonExistentFile' {
 
-      load ../scheduler.sh
+
       result=$(schedule fake.py $(date "+%R"))
       assert $result same_as "File does not exists"
       
@@ -60,22 +66,8 @@
 
 @test 'testMainWithCSV' {
 
-      # delete previous tests file
-      run rm -rf ~/test.csv
-      run rm -rf ~/testfile.txt
-      
-      # create a new test file
-      run touch ~/test.csv
-      
-      # send one entry with today's date to the csv
-      export csv=~/test.csv
-      run echo "$(date +%A),$(date +%R),$(pwd)/createFile.py" >> ~/test.csv
 
-      # load and run
-      load ../scheduler.sh
-      result=$(main $csv)
-
-      
+      result=$(main $testcsv)
       assert $result same_as 'Done'
       # if scheduled, file will be created with current time
       assert ~/testfile.txt exists
@@ -85,7 +77,7 @@
 
 @test 'testMainNoCSV' {
 
-      load ../scheduler.sh
+
       result=$(main)
       assert $result same_as 'No scripts to run'
 }

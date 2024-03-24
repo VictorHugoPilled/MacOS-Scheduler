@@ -47,23 +47,29 @@ function getTodaysScripts(){
     # create associate array for scripts
     typeset -A todaysScripts
 
-    # iterate through each script
-    while read -r lines;do
-	scriptDay=$(echo $lines | awk -F"," '{print $1}')
-	if [[ $scriptDay == $day ]]; then
-	    # read in scriptname and time
-	    scriptName=$(echo $lines | awk -F"," '{print $3}')
-	    scriptTime=$(echo $lines | awk -F"," '{print $2}')
+    # IFS = input field seperator
+    # IFS is set to an empty value
+    # each line from the file is assigned individually to $line
+    # -r = consider each backslash to be part of the input line
+    while IFS= read -r line;do
+	# s:string: = force field splitting at the separator string
+	# expand the line into an array
+	typeset -a array
+	array=("${(@s:,:)line}")
+	# array indices start at 1
+	if [[ ${array[1]} == $day ]]; then
+	    scriptName=${array[3]}
+	    scriptTime=${array[2]}
 	    # place them in the associative array
 	    todaysScripts[$scriptName]=$scriptTime
 	fi
-    # pipe the scripts variable into the above loop
     done <<< $scripts
-
+    
     # return the associative array of todays scripts
     echo ${(kv)todaysScripts}
     
 }
+
 
 
 # first argument is scriptname
