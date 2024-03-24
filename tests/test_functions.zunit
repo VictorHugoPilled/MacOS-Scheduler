@@ -40,8 +40,10 @@
 @test 'testScheduleFileExists' {
 
       load ../scheduler.sh
-      result=$(schedule ~/basicdownload.py $(date "+%R"))
-      assert $result does_not_contain "File does not exists"
+      result=$(schedule ~/createFile.py $(date "+%R"))
+      echo $result
+      # if scheduled, file will be created with current time
+      assert "/Users/earlchase/testfile.txt" exists
 
 }
 

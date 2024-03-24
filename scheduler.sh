@@ -81,9 +81,11 @@ function schedule() {
     
     # Check if the file exists before running it
     scriptName=$1
-    [[ -f "$scriptName" ]] && python3 "$scriptName"  || echo "File does not exists"
+    [[ -f "$scriptName" ]] && { python3 "$scriptName" & }  || echo "File does not exists"
     
 }
+
+
 
 # takes csv with files as first argument
 # and runs every script that needs to be run today
