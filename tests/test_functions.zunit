@@ -39,11 +39,12 @@
 
 @test 'testScheduleFileExists' {
 
+      run rm -rf ~/testfile.txt
       load ../scheduler.sh
       result=$(schedule ~/createFile.py $(date "+%R"))
       echo $result
       # if scheduled, file will be created with current time
-      assert "/Users/earlchase/testfile.txt" exists
+      assert ~/testfile.txt exists
 
 }
 
