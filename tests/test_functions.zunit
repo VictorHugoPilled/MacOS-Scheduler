@@ -60,10 +60,26 @@
 
 @test 'testMainWithCSV' {
 
-      load ../scheduler.sh
-      result=$(main)
-      assert $result same_as 'Done'
+      # delete previous tests file
+      run rm -rf ~/test.csv
+      run rm -rf ~/testfile.txt
       
+      # create a new test file
+      run touch ~/test.csv
+      
+      # send one entry with today's date to the csv
+      export csv=~/test.csv
+      run echo "$(date +%A),$(date +%R),$(pwd)/createFile.py" >> ~/test.csv
+
+      # load and run
+      load ../scheduler.sh
+      result=$(main $csv)
+
+      
+      assert $result same_as 'Done'
+      # if scheduled, file will be created with current time
+      assert ~/testfile.txt exists
+
       
 }
 
@@ -71,6 +87,5 @@
 
       load ../scheduler.sh
       result=$(main)
-      assert $result is_empty
-      
+      assert $result same_as 'No scripts to run'
 }
