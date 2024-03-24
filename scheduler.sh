@@ -28,9 +28,6 @@ function parseCSV(){
 
 # pass the scheduler as the first argument
 function getTodaysScripts(){
-
-    # %A = locale's full weekday name (e.g., Sunday)
-    day=$(date "+%A")
     
     # store the csv variable
     csv=$1
@@ -38,11 +35,14 @@ function getTodaysScripts(){
     # parse the csv config file
     scripts=$(parseCSV "$csv")
 
-    # if there are no scripts today do nothing
+    # if there are no scripts, today do nothing
     if [[ ! -n "$scripts" ]]; then
 	echo "No scripts today"
 	return
     fi
+
+    # %A = locale's full weekday name (e.g., Sunday)
+    day=$(date "+%A")
 
     # create associate array for scripts
     typeset -A todaysScripts
