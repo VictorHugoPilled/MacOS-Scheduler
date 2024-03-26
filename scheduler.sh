@@ -122,8 +122,6 @@ function main(){
     # wait for all scripts to run before exiting
     wait
 
-    # all scripts have finished running
-    echo 'Done'
 }
 
 

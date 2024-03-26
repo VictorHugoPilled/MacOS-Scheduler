@@ -1,22 +1,16 @@
 #!/usr/bin/env zunit
-
 @setup {
 
+       load ../createATester.sh
+       # create a test csv
+       testcsvcreator
        load ../scheduler.sh
-       run rm -rf ~/testfile.txt
-       export csv='scheduler.csv'
-       run ./createATestFile.sh
-       export testcsv="/test.csv"
-}
 
-@teardown {
-
-	  
 }
 
 @test 'testparseCSVWithCSV' {
 
-      result=$(parseCSV $csv)
+      result=$(parseCSV $testcsv)
       assert $result is_not_empty
       assert $result does_not_contain 'File not found'
 }
@@ -30,9 +24,10 @@
 
 @test 'testgetTodaysScriptsWithCSV' {
 
-      result=$(getTodaysScripts $csv)
+      result=$(getTodaysScripts $testcsv)
       assert $result is_not_empty
       assert $result does_not_contain 'No scripts today'
+      
        
 }
 
@@ -40,14 +35,13 @@
 
       result=$(getTodaysScripts)
       assert $result is_empty
-
+      
       
 }
 
-
 @test 'testScheduleFileExists' {
       
-      result=$(schedule ~/createFile.py $(date "+%R"))
+      result=$(schedule createFile.py $(date "+%R"))
       echo $result
       # if scheduled, file will be created with current time
       assert ~/testfile.txt exists
@@ -63,15 +57,14 @@
 
 }
 
-
 @test 'testMainWithCSV' {
 
 
       result=$(main $testcsv)
-      assert $result same_as 'Done'
       # if scheduled, file will be created with current time
       assert ~/testfile.txt exists
-
+      assert ../test.json exists
+      
       
 }
 
