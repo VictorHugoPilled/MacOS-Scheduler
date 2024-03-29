@@ -3,7 +3,7 @@
 ## CSV Setup
 1. Place the day, the script time and the full script path in the scheduler.csv. There are examples in the csv for you to follow.
    - **Don't remove the header row**, it is ignored when the script is ran, but if you do remove it, all of your scripts will not run.
-   - If you need to run to more than one script per day, order them by time. 
+   - The order you place scripts in the file does not matter as they filtered by day and sorted by time in the code. 
    - Days must be capitalized: Monday, Tuesday, etc.
    - Time must be written in the 24 hour format: 00:00-23:59.
 
