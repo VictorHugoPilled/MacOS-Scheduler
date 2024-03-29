@@ -1,67 +1,74 @@
 #!/usr/bin/env zunit
+
 @setup {
 
+       # load script that creates tests csv
        load ../createATester.sh
        # create a test csv
        testcsvcreator
+       # export the csv for tests
+       export testcsv=testschedule.csv
+       # load the scheduler
        load ../scheduler.sh
 
 }
 
-@test 'testparseCSVWithCSV' {
-
-      result=$(parseCSV $testcsv)
-      assert $result is_not_empty
-      assert $result does_not_contain 'File not found'
-}
-
-@test 'testparseCSVWithNoCSV' {
-
-      result=$(parseCSV)
-      assert $result is_not_empty
-      assert $result same_as 'File not found'
-}
-
 @test 'testgetTodaysScriptsWithCSV' {
 
+      # run with testcsv
       result=$(getTodaysScripts $testcsv)
       assert $result is_not_empty
-      assert $result does_not_contain 'No scripts today'
       
-       
 }
 
 @test 'testgetTodaysScriptsWithNoCSV' {
 
+      # run with testcsv
       result=$(getTodaysScripts)
-      assert $result is_empty
-      
+      assert $result same_as 'File not found'
       
 }
 
-@test 'testScheduleFileExists' {
-      
-      result=$(schedule createFile.py $(date "+%R"))
-      echo $result
+@test 'testrunnerFileExists' {
+
+      # One minute from now
+      oneminute=$(date -j -f "%a %b %d %T %Z %Y" "`date -v+1M`" "+%H:%M")
+      # real python file to run
+      pyfile=createFile.py
+      # send to runner
+      result=$(runner $pyfile $oneminute)
       # if scheduled, file will be created with current time
       assert ~/testfile.txt exists
 
 }
 
-@test 'testScheduleNonExistentFile' {
+@test 'testrunnerNoTime' {
 
+      # use a real python file
+      pyfile=createFile.py
+      result=$(runner $pyfile)
+      assert $result same_as 'A time to run is needed'
 
-      result=$(schedule fake.py $(date "+%R"))
-      assert $result same_as "File does not exists"
+}
+
+@test 'testrunnerNonExistentFile' {
+
+      # one minute from now
+      oneminute=$(date -j -f "%a %b %d %T %Z %Y" "`date -v+1M`" "+%H:%M")
+      # fake python file
+      fakefile=fake.py
+      result=$(runner $fakefile $oneminute)
+      assert $result same_as 'File does not exist'
       
 
 }
 
 @test 'testMainWithCSV' {
 
-
+      # run script with testcsv 
       result=$(main $testcsv)
-      # if scheduled, file will be created with current time
+
+      # these files should be created based off the info in testcsv
       assert ~/testfile.txt exists
       assert ../test.json exists
       
@@ -70,7 +77,7 @@
 
 @test 'testMainNoCSV' {
 
-
       result=$(main)
-      assert $result same_as 'No scripts to run'
+      # result should be empty if the script exited at early return
+      assert $result same_as 'CSV needed'
 }

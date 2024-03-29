@@ -64,7 +64,7 @@ cd /Users/earlchase/documents/scheduler
 # run scheduling script
 source scheduler.sh
 # If you need to change the csv name do it here
-main scheduler.csv
+main testschedule.csv
 
 </string>
 					<key>CheckedForUserDefaultShell</key>
@@ -75,6 +75,28 @@ main scheduler.csv
 					<string>/bin/zsh</string>
 					<key>source</key>
 					<string></string>
+				</dict>
+				<key>ActionRuntimeParameters</key>
+				<dict>
+					<key>COMMAND_STRING</key>
+					<string># place scheduler and scripts you want to run in the same directory
+cd /Users/earlchase/documents/scheduler
+# run scheduling script
+source scheduler.sh
+# If you need to change the csv name do it here
+main testschedule.csv
+
+</string>
+					<key>CheckedForUserDefaultShell</key>
+					<true/>
+					<key>inputMethod</key>
+					<integer>0</integer>
+					<key>shell</key>
+					<string>/bin/zsh</string>
+					<key>source</key>
+					<string></string>
+					<key>temporary items path</key>
+					<string>/var/folders/z0/t7840q751lnbbdv_gxr3whp40000gn/T/D34E1DAF-EA5C-4947-B71E-1DE17B0D2E6A/1/com.apple.RunShellScript</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.RunShellScript</string>
