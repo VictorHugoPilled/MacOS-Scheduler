@@ -92,7 +92,6 @@ function main(){
 	return
     fi
 
-    echo $
 
     # read in the scripts line by line
     while IFS= read -r line;do
@@ -107,12 +106,11 @@ function main(){
 
 	echo "${scriptName} will run at ${scriptTime}"
 
-	# send the script to the runner
-	# and store the pid
-	typeset -i pid=$(runner ${scriptName} ${scriptTime})
-	
+	runner ${scriptName} ${scriptTime}
+
     done <<< $todaysScripts
 
+    # wait for all scripts to finish running
     wait
     
 
